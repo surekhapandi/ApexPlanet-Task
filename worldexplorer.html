@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExploreWorld Travel Agency</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f8fa;
+      color: #333;
+    }
+    header {
+      background: #00bfa5;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #00796b;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 1rem;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #004d40;
+      border-radius: 5px;
+    }
+.container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .card h3 {
+      margin: 0.5rem 0;
+      color: #00796b;
+    }
+    .cta {
+      text-align: center;
+      margin: 2rem;
+    }
+    .cta a {
+      display: inline-block;
+      background: #00796b;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .cta a:hover {
+      background: #004d40;
+    }
+    .page {
+        padding: 2rem;
+        padding-bottom: 100px;
+    }
+    footer {
+      background: #00796b;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      height: 60px;
+      line-height: 1.5;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="javascript:void(0);" onclick="showPage('home')">Home</a>
+    <a href="javascript:void(0);" onclick="showPage('contact')">Contact</a>
+    <a href="javascript:void(0);" onclick="showPage('review')">Reviews</a>
+  </nav>
+
+  <!-- Home Page (default) -->
+  <div id="home" class="page">
+    <header>
+      <h1>ExploreWorld Travel Agency</h1>
+      <p>Discover Your Next Adventure</p>
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <img src="https://tse2.mm.bing.net/th?id=OIP.TbLBb1MjKDq8ZxFZlySJawHaE5&pid=Api&P=0&h=180" alt="Araku Valley">
+        <h3>Araku Valley</h3>
+        <p>A scenic hill station known for its coffee plantations and tribal culture.</p>
+      </div>
+      <div class="card">
+        <img src="https://i0.wp.com/stanzaliving.wpcomstaging.com/wp-content/uploads/2022/04/a34bb-places-to-visit-in-visakhapatnam.jpg?fit=1000%2C662&ssl=1" alt="Visakhapatnam">
+  <h3>Visakhapatnam</h3>
+        <p>A coastal city with beaches, hills, and the INS Kurusura Submarine Museum.</p>
+      </div>
+      <div class="card">
+        <img src="https://tse2.mm.bing.net/th?id=OIP.Hof6ui2j2evBF4mA-3JbAAHaE7&pid=Api&P=0&h=180" alt="Tirupati">
+        <h3>Tirupati</h3>
+        <p>Home to the famous Tirumala Venkateswara Temple, a spiritual hotspot.</p>
+      </div>
+      <div class="card">
+        <img src="https://www.holidify.com/images/bgImages/GANDIKOTA.jpg" alt="Gandikota">
+        <h3>Gandikota</h3>
+        <p>The "Grand Canyon of India," with breathtaking gorges and a historic fort.</p>
+      </div>
+      <div class="card">
+        <img src="https://pratapj.com/pxshv1/wp-content/uploads/146_linga-at-lepakshi-temple-near-bangalore_pj.jpg" alt="Lepakshi">
+        <h3>Lepakshi</h3>
+        <p>Known for its hanging pillar and stunning temple architecture.</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="https://example.com/andhra-pradesh" target="_blank">Visit Travel Guide</a>
+      <br><br>
+      <button onclick="alert('Thank you for planning your trip with us!')">Plan My Trip</button>
+    </div>
+  </div>
+
+  <!-- Contact Page -->
+  <div id="contact" class="page" style="display:none;">
+    <header>
+      <h1>Contact Us</h1>
+      <p>We would love to hear from you!</p>
+    </header>
+
+    <div>
+      <h2>Contact Details</h2>
+ <p>Email: surekhapandhi@gmail.com</p>
+      <p>Phone: +91 9010202578</p>
+
+      <h3>Send us a Message:</h3>
+      <form action="mailto:surekhapandhi@gmail.com" method="POST" enctype="multipart/form-data">
+        <label for="name">Your Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Your Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="message">Your Message:</label><br>
+        <textarea id="message" name="message" rows="5" required></textarea><br><br>
+        <input type="submit" value="Send Message">
+      </form>
+    </div>
+  </div>
+
+  <!-- Review Page -->
+  <div id="review" class="page" style="display:none;">
+    <header>
+      <h1>Customer Reviews</h1>
+      <p>Here's what our travelers have to say!</p>
+    </header>
+    <div>
+      <h2>Recent Reviews</h2>
+      <p>"Amazing trip! The Araku Valley was an unforgettable experience!" - Neeraja S.</p>
+      <p>"I loved visiting Visakhapatnam, especially the beaches!" - Shobitha P.</p>
+      <p>"The trip was seamless and perfectly planned. Highly recommend!" - Navya P.</p>
+    </div>
+  </div>
+<!-- Footer -->
+  <footer>
+    <p>&copy; 2025 ExploreWorld Travel Agency. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript to switch between pages -->
+  <script>
+    function showPage(page) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.style.display = 'none');  // Hide all pages
+      document.getElementById(page).style.display = 'block';  // Show the selected page
+    }
+
+    // Default page (Home)
+    showPage('home');
+  </script>
+</body>
+</html>
