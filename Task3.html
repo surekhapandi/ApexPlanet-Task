@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web Skills Showcase (All-in-One)</title>
+
+    <style>
+        /* Basic Reset & Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        h1, h2, h3 {
+            color: #007bff;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Quiz Section Styling */
+        #quiz-section {
+            background-color: #e6f7ff;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        #submit-quiz {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        #submit-quiz:hover {
+            background-color: #218838;
+        }
+
+        #quiz-results {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: none; /* Hidden by default, shown after submission */
+        }
+
+        #score {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .correct-answer {
+            color: green;
+            font-weight: bold;
+        }
+
+        .incorrect-answer {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Joke Section Styling */
+        #joke-section {
+            background-color: #fff3e0;
+            text-align: center;
+        }
+
+        #joke-text {
+            font-style: italic;
+            font-size: 1.1em;
+            padding: 10px;
+            border: 1px dashed #ff9800;
+            border-radius: 5px;
+            background-color: #ffe0b2;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #333;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design Using Media Queries */
+
+        /* For Tablets (up to 768px wide) */
+        @media (max-width: 768px) {
+            main {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            #submit-quiz {
+                font-size: 1em;
+                padding: 8px 12px;
+            }
+        }
+
+        /* For Mobile Devices (up to 480px wide) */
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 0;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            main {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            section {
+                padding: 15px;
+            }
+
+            .question p {
+                font-size: 0.95em;
+            }
+
+            .options label {
+                font-size: 0.9em;
+            }
+
+            #submit-quiz {
+                font-size: 0.9em;
+                padding: 7px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Web Development Quiz</h1>
+        <p>Challenge yourself and enjoy the joke</p>
+    </header>
+
+    <main>
+        <section id="quiz-section">
+            <h2>Web Development Quiz</h2>
+            <div id="quiz-container">
+                <form id="quiz-form">
+                    </form>
+                <button id="submit-quiz">Submit Quiz</button>
+                <div id="quiz-results">
+                    <h3>Your Quiz Results:</h3>
+                    <p id="score"></p>
+                    <div id="answers-feedback"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="joke-section">
+            <h2>Random Joke for You!</h2>
+            <div id="joke-container">
+                <p id="joke-text">Loading a joke...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Advanced Web Skills. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 1. Quiz Data
+        const quizQuestions = [
+            {
+                question: "Which of the following is NOT a core web technology?",
+                options: ["HTML", "CSS", "Python", "JavaScript"],
+                answer: "Python"
+            },
+            {
+                question: "What does HTML stand for?",
+                options: ["Hyper Text Markup Language", "High-level Text Machine Language", "Hyperlink and Text Markup Language", "Home Tool Markup Language"],
+                answer: "Hyper Text Markup Language"
+            },
+            {
+                question: "Which CSS property is used for controlling the spacing between letters?",
+                options: ["word-spacing", "letter-spacing", "line-height", "text-indent"],
+                answer: "letter-spacing"
+            },
+            {
+                question: "What is the correct way to include an external JavaScript file?",
+                options: ["&lt;script src='script.js'&gt;", "&lt;link rel='javascript' href='script.js'&gt;", "&lt;javascript href='script.js'&gt;", "&lt;script name='script.js'&gt;"],
+                answer: "<script src='script.js'>"
+            },
+            {
+                question: "Which of these is a JavaScript framework/library?",
+                options: ["Django", "Ruby on Rails", "React", "Laravel"],
+                answer: "React"
+            },
+            {
+                question: "What does CSS stand for?",
+                options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"],
+                answer: "Cascading Style Sheets"
+            },
+            {
+                question: "Which HTML tag is used to define an internal style sheet?",
+                options: ["&lt;script&gt;", "&lt;css&gt;", "&lt;style&gt;", "&lt;link&gt;"],
+                answer: "<style>"
+            },
+            {
+                question: "How do you declare a constant variable in JavaScript?",
+                options: ["var", "let", "const", "static"],
+                answer: "const"
+            },
+            {
+                question: "What is the purpose of a media query in CSS?",
+                options: ["To apply styles based on the device's screen size", "To include external style sheets", "To define animations", "To select specific HTML elements"],
+                answer: "To apply styles based on the device's screen size"
+            },
+            {
+                question: "Which HTTP method is typically used to retrieve data from a server?",
+                options: ["POST", "PUT", "GET", "DELETE"],
+                answer: "GET"
+            }
+        ];
+
+        // Get DOM elements
+        const quizForm = document.getElementById('quiz-form');
+        const submitQuizButton = document.getElementById('submit-quiz');
+        const quizResultsDiv = document.getElementById('quiz-results');
+        const scoreSpan = document.getElementById('score');
+        const answersFeedbackDiv = document.getElementById('answers-feedback');
+        const jokeText = document.getElementById('joke-text');
+
+        // Function to build the quiz dynamically
+        function buildQuiz() {
+            quizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('options');
+
+                q.options.forEach(option => {
+                    const label = document.createElement('label');
+                    label.innerHTML = `
+                        <input type="radio" name="question${index}" value="${option}">
+                        ${option}
+                    `;
+                    optionsDiv.appendChild(label);
+                });
+                questionDiv.appendChild(optionsDiv);
+                quizForm.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate and display quiz results
+        function showResults() {
+            let score = 0;
+            answersFeedbackDiv.innerHTML = ''; // Clear previous feedback
+
+            quizQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                const feedbackDiv = document.createElement('div');
+
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    if (userAnswer === q.answer) {
+                        score++;
+                        feedbackDiv.innerHTML = `<p class="correct-answer">Question ${index + 1}: Correct! Your answer: "${userAnswer}"</p>`;
+                    } else {
+                        feedbackDiv.innerHTML = `<p class="incorrect-answer">Question ${index + 1}: Incorrect. Your answer: "${userAnswer}". Correct answer: "${q.answer}"</p>`;
+                    }
+                } else {
+                    feedbackDiv.innerHTML = `<p class="incorrect-answer">Question ${index + 1}: Not answered. Correct answer: "${q.answer}"</p>`;
+                }
+                answersFeedbackDiv.appendChild(feedbackDiv);
+            });
+
+            scoreSpan.textContent = `You scored ${score} out of ${quizQuestions.length}!`;
+            quizResultsDiv.style.display = 'block'; // Show results section
+            submitQuizButton.style.display = 'none'; // Hide submit button after submission
+        }
+
+        // Function to fetch a random joke from an API
+        async function fetchJoke() {
+            jokeText.textContent = "Fetching a hilarious joke...";
+            try {
+                // Using an open API for jokes: 'https://v2.jokeapi.dev/joke/Any?type=single'
+                // Documentation: https://sv443.net/jokeapi/v2/
+                const response = await fetch('https://v2.jokeapi.dev/joke/Programming?type=single'); // Focusing on programming jokes
+                const data = await response.json();
+
+                if (data.joke) {
+                    jokeText.textContent = data.joke;
+                } else {
+                    jokeText.textContent = "Couldn't fetch a joke at the moment. Please try again later!";
+                }
+            } catch (error) {
+                console.error("Error fetching joke:", error);
+                jokeText.textContent = "Failed to fetch a joke due to a network error. Try again!";
+            }
+        }
+
+        // Event Listeners
+        submitQuizButton.addEventListener('click', () => {
+            showResults();
+            fetchJoke(); // Fetch joke after quiz submission
+        });
+
+        // Initial build of the quiz when the page loads
+        document.addEventListener('DOMContentLoaded', buildQuiz);
+    </script>
+</body>
+</html>
