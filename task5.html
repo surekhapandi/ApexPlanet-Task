@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Sharing App - All in One</title>
+    <style>
+        /* --- CSS/style.css content starts here --- */
+        /* Basic Reset & Typography */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* For responsiveness */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Gold */
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #007bff; /* Blue */
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Filter & Search Bar */
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            flex-grow: 1;
+            max-width: 400px; /* Limit search bar width */
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        .category-filter label {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .category-filter select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+
+        /* Recipe Cards Grid */
+        .recipe-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .recipe-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .recipe-card-content {
+            padding: 15px;
+        }
+
+        .recipe-card h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.4rem;
+        }
+
+        .recipe-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .recipe-card .category-tag {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: #555;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+
+        .recipe-card button {
+            background-color: #28a745; /* Green */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .recipe-card button:hover {
+            background-color: #218838;
+        }
+
+        /* Add Recipe Form */
+        .add-recipe-section form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group select, /* Style for the new select dropdown */
+        .form-group textarea {
+            width: calc(100% - 20px); /* Account for padding */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .add-recipe-section button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-recipe-section button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        /* --- Mobile Responsiveness (Media Queries) --- */
+        /* Small screens (e.g., phones) */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            main {
+                padding: 15px;
+                margin: 10px auto;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: 100%; /* Allow search bar to take full width */
+            }
+
+            .search-bar input,
+            .search-bar button {
+                width: 100%;
+            }
+
+            .category-filter {
+                width: 100%;
+                text-align: center; /* Center label and select on small screens */
+            }
+            .category-filter select {
+                width: calc(100% - 20px); /* Account for padding */
+            }
+
+
+            .recipe-cards-grid {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+
+            .add-recipe-section form {
+                padding: 15px;
+            }
+        }
+
+        /* Extra small screens (e.g., very narrow phones) */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                margin-top: 10px;
+            }
+
+            .recipe-card-content h3 {
+                font-size: 1.2rem;
+            }
+        }
+        /* --- CSS/style.css content ends here --- */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Recipe Share</h1>
+        <nav>
+            <ul>
+                <li><a href="#recipes">Recipes</a></li>
+                <li><a href="#add-recipe">Add New</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="recipes" class="recipe-list-section">
+            <h2>Our Delicious Recipes</h2>
+            <div class="filter-controls">
+                <div class="search-bar">
+                    <input type="text" id="recipe-search" placeholder="Search recipes...">
+                    <button id="search-button">Search</button>
+                </div>
+                <div class="category-filter">
+                    <label for="category-select">Category:</label>
+                    <select id="category-select">
+                        <option value="all">All Categories</option>
+                        <option value="veg">Veg</option>
+                        <option value="non-veg">Non-Veg</option>
+                        <option value="salads">Salads</option>
+                        <option value="rice">Rice</option>
+                        <option value="curry">Curry</option>
+                    </select>
+                </div>
+            </div>
+            <div id="recipe-cards-container" class="recipe-cards-grid">
+                </div>
+        </section>
+
+        <section id="add-recipe" class="add-recipe-section">
+            <h2>Add a New Recipe</h2>
+            <form id="add-recipe-form">
+                <div class="form-group">
+                    <label for="recipe-title">Recipe Title:</label>
+                    <input type="text" id="recipe-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-image">Image URL (optional):</label>
+                    <input type="url" id="recipe-image">
+                </div>
+                 <div class="form-group">
+                    <label for="recipe-category">Category:</label>
+                    <select id="recipe-category" required>
+                        <option value="">Select a Category</option>
+                        <option value="veg">Veg</option>
+                        <option value="non-veg">Non-Veg</option>
+                        <option value="salads">Salads</option>
+                        <option value="rice">Rice</option>
+                        <option value="curry">Curry</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-ingredients">Ingredients (one per line):</label>
+                    <textarea id="recipe-ingredients" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-instructions">Instructions (step by step):</label>
+                    <textarea id="recipe-instructions" rows="8" required></textarea>
+                </div>
+                <button type="submit">Add Recipe</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Recipe Share App</p>
+    </footer>
+
+    <script>
+        /* --- JavaScript/script.js content starts here --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const recipeCardsContainer = document.getElementById('recipe-cards-container');
+            const addRecipeForm = document.getElementById('add-recipe-form');
+            const recipeSearchInput = document.getElementById('recipe-search');
+            const searchButton = document.getElementById('search-button');
+            const categorySelect = document.getElementById('category-select'); // New: Category filter dropdown
+
+            // Dummy data for initial display (with added category)
+            let recipes = [
+                {
+                    id: 1,
+                    title: "Classic Tomato Pasta",
+                    image: "https://www.thespruceeats.com/thmb/9fYxShK1rUiM97nn2aE2tB7-0vc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-tomato-pasta-sauce-recipe-3992836-hero-01-8ad6cb1d12564635a23a0bfcdaee9980.jpg",
+                    ingredients: ["200g pasta", "400g canned tomatoes", "2 cloves garlic", "Fresh basil", "Olive oil", "Salt", "Pepper"],
+                    instructions: "Boil pasta. Sauté garlic in olive oil, add tomatoes and simmer. Mix with pasta, add basil.",
+                    category: "veg"
+                },
+                {
+                    id: 2,
+                    title: "Colorful Veggie Stir-fry",
+                    image: "https://static.vecteezy.com/system/resources/previews/049/204/943/large_2x/colorful-vegetable-stir-fry-served-over-fluffy-white-rice-on-a-decorative-blue-plate-photo.jpeg",
+                    ingredients: ["Broccoli", "Carrots", "Bell peppers", "Soy sauce", "Ginger", "Garlic", "Noodles (optional)"],
+                    instructions: "Chop vegetables. Sauté ginger and garlic, add vegetables. Stir in soy sauce. Serve with noodles.",
+                    category: "veg"
+                },
+                {
+                    id: 3,
+                    title: "Spicy Chicken Curry",
+                    image: "http://maunikagowardhan.co.uk/wp-content/uploads/2016/07/Nadan-Chicken-Perelan.jpg",
+                    ingredients: ["Chicken breast", "Curry paste", "Coconut milk", "Onion", "Potatoes", "Rice"],
+                    instructions: "Brown chicken. Add onion, curry paste, coconut milk, and potatoes. Simmer until cooked. Serve with rice.",
+                    category: "curry"
+                },
+                {
+                    id: 4,
+                    title: "Quinoa and Chickpea Salad",
+                    image: "https://www.eatwell101.com/wp-content/uploads/2021/02/Healthy-Chickpea-Quinoa-Salad-recipe-1.jpg",
+                    ingredients: ["Cooked quinoa", "Chickpeas", "Cucumber", "Cherry tomatoes", "Lemon-tahini dressing", "Parsley"],
+                    instructions: "Combine quinoa, chickpeas, cucumber, and tomatoes. Drizzle with dressing and garnish with parsley.",
+                    category: "salads"
+                },
+                {
+                    id: 5,
+                    title: "Shrimp Fried Rice",
+                    image: "https://www.easycookingwithmolly.com/wp-content/uploads/2020/09/spicy-shrimp-fried-rice-thai.jpg",
+                    ingredients: ["Cooked rice", "Shrimp", "Eggs", "Peas", "Carrots", "Soy sauce", "Sesame oil"],
+                    instructions: "Sauté shrimp, then add eggs. Stir in rice, peas, carrots. Season with soy sauce and sesame oil.",
+                    category: "rice"
+                },
+                 {
+                    id: 6,
+                    title: "Creamy Chicken Masala",
+                    image: "https://pinchofyum.com/wp-content/uploads/Chicken-Tikka-Masala.jpg",
+                    ingredients: ["Chicken pieces", "Yogurt", "Ginger-garlic paste", "Tomato puree", "Cream", "Spices"],
+                    instructions: "Marinate chicken in yogurt and spices. Cook with ginger-garlic and tomato. Finish with cream.",
+                    category: "curry"
+                }
+            ];
+
+            // Function to render recipes
+            function renderRecipes() {
+                const filterText = recipeSearchInput.value.toLowerCase();
+                const selectedCategory = categorySelect.value;
+
+                recipeCardsContainer.innerHTML = ''; // Clear existing recipes
+
+                const filteredRecipes = recipes.filter(recipe => {
+                    const matchesSearch = recipe.title.toLowerCase().includes(filterText) ||
+                                          recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(filterText));
+                    const matchesCategory = selectedCategory === 'all' || recipe.category === selectedCategory;
+                    return matchesSearch && matchesCategory;
+                });
+
+                if (filteredRecipes.length === 0) {
+                    recipeCardsContainer.innerHTML = '<p style="text-align: center; width: 100%;">No recipes found matching your criteria.</p>';
+                    return;
+                }
+
+                filteredRecipes.forEach(recipe => {
+                    const recipeCard = document.createElement('div');
+                    recipeCard.classList.add('recipe-card');
+                    recipeCard.setAttribute('data-id', recipe.id);
+
+                    recipeCard.innerHTML = `
+                        <img data-src="${recipe.image}" alt="${recipe.title}" class="lazyload-image">
+                        <div class="recipe-card-content">
+                            <h3>${recipe.title}</h3>
+                            <span class="category-tag">${recipe.category.charAt(0).toUpperCase() + recipe.category.slice(1)}</span>
+                            <p>${recipe.ingredients.slice(0, 3).join(', ')}${recipe.ingredients.length > 3 ? '...' : ''}</p>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    `;
+                    recipeCardsContainer.appendChild(recipeCard);
+                });
+
+                applyLazyLoading();
+            }
+
+            // Function for lazy loading images
+            function applyLazyLoading() {
+                const lazyImages = document.querySelectorAll('img.lazyload-image');
+
+                if ('IntersectionObserver' in window) {
+                    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                let lazyImage = entry.target;
+                                lazyImage.src = lazyImage.dataset.src;
+                                lazyImage.classList.remove('lazyload-image');
+                                lazyImageObserver.unobserve(lazyImage);
+                            }
+                        });
+                    });
+
+                    lazyImages.forEach(function(lazyImage) {
+                        lazyImageObserver.observe(lazyImage);
+                    });
+                } else {
+                    // Fallback for browsers that don't support Intersection Observer
+                    lazyImages.forEach(function(lazyImage) {
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove('lazyload-image');
+                    });
+                }
+            }
+
+
+            // Handle Add New Recipe form submission
+            addRecipeForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const title = document.getElementById('recipe-title').value;
+                const image = document.getElementById('recipe-image').value || 'https://via.placeholder.com/400x200?text=No+Image';
+                const category = document.getElementById('recipe-category').value; // Get new category input
+                const ingredients = document.getElementById('recipe-ingredients').value.split('\n').filter(Boolean);
+                const instructions = document.getElementById('recipe-instructions').value;
+
+
+                if (!category) {
+                    alert('Please select a category for the recipe.');
+                    return;
+                }
+
+                const newRecipe = {
+                    id: recipes.length ? Math.max(...recipes.map(r => r.id)) + 1 : 1,
+                    title,
+                    image,
+                    category, // Add category to new recipe
+                    ingredients,
+                    instructions
+                };
+
+                recipes.push(newRecipe);
+                renderRecipes();
+                addRecipeForm.reset();
+                alert('Recipe added successfully (frontend only)!');
+            });
+
+            // Handle search functionality
+            searchButton.addEventListener('click', renderRecipes);
+
+            recipeSearchInput.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    renderRecipes();
+                }
+            });
+
+            // Handle category filter change
+            categorySelect.addEventListener('change', renderRecipes);
+
+
+            // Initial render of recipes when the page loads
+            renderRecipes();
+
+            // --- Dynamic Content for "View Details" ---
+            recipeCardsContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('view-details-btn')) {
+                    const card = event.target.closest('.recipe-card');
+                    const recipeId = parseInt(card.dataset.id);
+                    const recipe = recipes.find(r => r.id === recipeId);
+
+                    if (recipe) {
+                        alert(`Recipe: ${recipe.title}\nCategory: ${recipe.category.charAt(0).toUpperCase() + recipe.category.slice(1)}\n\nIngredients:\n${recipe.ingredients.join('\n')}\n\nInstructions:\n${recipe.instructions}`);
+                    }
+                }
+            });
+        });
+        /* --- JavaScript/script.js content ends here --- */
+    </script>
+</body>
+</html>
